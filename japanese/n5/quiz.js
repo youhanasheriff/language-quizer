@@ -554,8 +554,8 @@ function checkAnswer(btn, idx) {
     btn.classList.add('wrong');
     streakCount = 0;
     // Highlight correct answer
-    document.querySelectorAll('.option-btn').forEach(b => {
-      if (b.textContent.trim().replace(/^\d\s*/, '') === q.answer || b.textContent.includes(q.answer)) {
+    document.querySelectorAll('.option-btn').forEach((b, bIdx) => {
+      if (q.options[bIdx] === q.answer) {
         b.classList.add('show-correct');
       }
     });
@@ -639,6 +639,7 @@ function showResults() {
 function restartQuiz() { startQuiz(); }
 function backToMenu() {
   currentMode = null;
+  currentFilter = 'all';
   document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('results-screen').classList.remove('show');
   document.getElementById('quiz-card').style.display = 'flex';
@@ -664,12 +665,12 @@ document.addEventListener('keydown', e => {
     const idx = parseInt(e.key) - 1;
     if (btns[idx]) { btns[idx].click(); }
   }
-  if ((e.key === 'Enter' || e.key === ' ') && answered) {
+  if (e.key === 'Enter' && !answered && document.getElementById('text-input-area').style.display !== 'none') {
+    e.preventDefault();
+    checkTypedAnswer();
+  } else if ((e.key === 'Enter' || e.key === ' ') && answered) {
     e.preventDefault();
     nextQuestion();
-  }
-  if (e.key === 'Enter' && !answered && document.getElementById('text-input-area').style.display !== 'none') {
-    checkTypedAnswer();
   }
 });
 
