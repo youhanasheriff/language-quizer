@@ -35,6 +35,10 @@
     <div class="question-text" id="q-text"></div>
     <div class="reading-hint" id="q-hint"></div>
     <div class="options" id="options"></div>
+    <div class="text-input-area" id="text-input-area" style="display:none">
+      <input type="text" id="answer-input" placeholder="Type your answer..." autocomplete="off" spellcheck="false">
+      <br><button class="submit-btn" id="submit-btn" onclick="checkTypedAnswer()">Check</button>
+    </div>
     <div class="feedback" id="feedback"></div>
     <button class="next-btn" id="next-btn" onclick="nextQuestion()">Next Question</button>
   </div>
