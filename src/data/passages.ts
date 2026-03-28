@@ -1,9 +1,6 @@
-// ============================================================
-// JLPT N5 Reading Passages
-// 9 passages covering core N5 topics with comprehension questions
-// ============================================================
+import type { Passage } from "./types";
 
-const PASSAGES = [
+export const PASSAGES: Passage[] = [
 
   // ──────────────────────────────────────────────
   // 1. Self-Introduction
@@ -1266,8 +1263,3 @@ const PASSAGES = [
   }
 
 ];
-
-// Export for use in other modules
-if (typeof module !== "undefined" && module.exports) {
-  module.exports = { PASSAGES };
-}
