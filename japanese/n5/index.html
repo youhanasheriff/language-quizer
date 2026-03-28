@@ -3,8 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JLPT N5 Quiz - Language Quizer</title>
+<title>JLPT N5 - Language Quizer</title>
 <link rel="stylesheet" href="../../style.css">
+<style>
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 4px;
+    margin-bottom: 32px;
+    max-width: 400px;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    text-align: center;
+    color: var(--text2);
+    background: transparent;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active {
+    background: var(--accent);
+    color: #fff;
+  }
+  .activity-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    text-decoration: none;
+    color: var(--text);
+    display: block;
+    transition: all 0.2s;
+    margin-bottom: 16px;
+  }
+  .activity-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .activity-card h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  .activity-card p {
+    color: var(--text2);
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+  .activity-card .tag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .activity-card .tag {
+    background: var(--bg3);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    color: var(--text2);
+  }
+</style>
 </head>
 <body>
 
@@ -17,53 +85,43 @@
     <span class="sep">/</span>
     <span>JLPT N5</span>
   </div>
-  <div class="stats">
-    <div>Score: <span id="score">0</span></div>
-    <div>Streak: <span id="streak" class="streak">0</span></div>
-    <div><span id="q-progress"></span></div>
-  </div>
 </div>
 
 <div class="container">
-  <div class="mode-selector" id="modes"></div>
-  <div class="filter-bar" id="filters"></div>
+  <h2 class="screen-title">JLPT N5</h2>
+  <p class="screen-subtitle">Choose your practice mode</p>
 
-  <div class="quiz-card" id="quiz-card">
-    <div class="progress-bar" id="progress-bar"></div>
-    <div class="question-number" id="q-num"></div>
-    <div class="question-prompt" id="q-prompt"></div>
-    <div class="question-text" id="q-text"></div>
-    <div class="reading-hint" id="q-hint"></div>
-    <div class="options" id="options"></div>
-    <div class="text-input-area" id="text-input-area" style="display:none">
-      <input type="text" id="answer-input" placeholder="Type your answer..." autocomplete="off" spellcheck="false">
-      <br><button class="submit-btn" id="submit-btn" onclick="checkTypedAnswer()">Check</button>
-    </div>
-    <div class="feedback" id="feedback"></div>
-    <button class="next-btn" id="next-btn" onclick="nextQuestion()">Next Question</button>
+  <div class="tab-bar">
+    <a href="quiz.html" class="tab-btn active">Quiz</a>
+    <a href="reading.html" class="tab-btn">Reading</a>
   </div>
 
-  <div class="results-screen" id="results-screen">
-    <div class="results-score" id="results-score"></div>
-    <div class="results-label">Correct Answers</div>
-    <div class="results-breakdown">
-      <div class="item"><div class="num correct-num" id="r-correct">0</div><div class="lbl">Correct</div></div>
-      <div class="item"><div class="num wrong-num" id="r-wrong">0</div><div class="lbl">Wrong</div></div>
-      <div class="item"><div class="num" id="r-total" style="color:var(--blue)">0</div><div class="lbl">Total</div></div>
+  <a href="quiz.html" class="activity-card">
+    <h3>Quiz Practice</h3>
+    <p>Test your knowledge with multiple choice questions across 8 different modes</p>
+    <div class="tag-row">
+      <span class="tag">139 Kanji</span>
+      <span class="tag">704 Vocabulary</span>
+      <span class="tag">58 Grammar Rules</span>
+      <span class="tag">Fill the Blank</span>
     </div>
-    <button class="submit-btn" onclick="restartQuiz()">Try Again</button>
-    <button class="submit-btn" style="background:var(--bg3);margin-left:12px;" onclick="backToMenu()">Change Mode</button>
-    <div class="missed-list" id="missed-list" style="display:none">
-      <h3>Review Missed Questions</h3>
-      <div id="missed-items"></div>
+  </a>
+
+  <a href="reading.html" class="activity-card">
+    <h3>Reading Practice</h3>
+    <p>Improve your reading with flashcards, comprehension questions, and interactive word-by-word breakdowns</p>
+    <div class="tag-row">
+      <span class="tag">9 Passages</span>
+      <span class="tag">Flashcard Mode</span>
+      <span class="tag">Comprehension</span>
+      <span class="tag">Word-by-Word</span>
     </div>
-  </div>
+  </a>
 </div>
 
-<div class="keyboard-hint">
-  <kbd>1</kbd>-<kbd>4</kbd> Answer &nbsp; <kbd>Enter</kbd>/<kbd>Space</kbd> Next
-</div>
+<footer class="footer">
+  <p>Built by Youhana Sheriff</p>
+</footer>
 
-<script src="quiz.js"></script>
 </body>
 </html>
