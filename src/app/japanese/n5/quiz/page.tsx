@@ -155,9 +155,9 @@ export default function QuizPage() {
         </div>
       </header>
 
-      <main className="max-w-[900px] mx-auto px-6 py-6 flex-1">
+      <main className="max-w-5xl mx-auto px-6 py-6 flex-1">
         {/* Mode Selector */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-3 mb-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-6">
           {MODES.map((m) => (
             <button
               key={m.id}

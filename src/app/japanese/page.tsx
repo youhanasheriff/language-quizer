@@ -63,7 +63,7 @@ export default function JapanesePage() {
         </nav>
       </header>
 
-      <main className="max-w-[960px] mx-auto px-6 py-10 flex-1">
+      <main className="max-w-5xl mx-auto px-6 py-10 flex-1">
         <h2 className="text-[28px] font-bold mb-2">Japanese (JLPT)</h2>
         <p className="text-text2 text-[15px] mb-8">
           Select your JLPT level to start practicing

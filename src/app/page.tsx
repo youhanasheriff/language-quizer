@@ -30,13 +30,13 @@ export default function HomePage() {
         </Link>
       </header>
 
-      <main className="max-w-[960px] mx-auto px-6 py-10 flex-1">
+      <main className="max-w-5xl mx-auto px-6 py-10 flex-1">
         <h2 className="text-[28px] font-bold mb-2">Choose a Language</h2>
         <p className="text-text2 text-[15px] mb-8">
           Select the language you want to practice
         </p>
 
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {languages.map((lang) =>
             lang.active ? (
               <Link

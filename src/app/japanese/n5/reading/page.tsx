@@ -93,9 +93,9 @@ export default function ReadingPage() {
         </nav>
       </header>
 
-      <main className="max-w-[900px] mx-auto px-6 py-6 flex-1">
+      <main className="max-w-5xl mx-auto px-6 py-6 flex-1">
         {/* Mode Selector */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-3 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
           {READING_MODES.map((m) => (
             <button
               key={m.id}
@@ -113,7 +113,7 @@ export default function ReadingPage() {
 
         {/* Passage List */}
         {mode && (
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-2.5 mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 mb-6">
             {PASSAGES.map((p, i) => (
               <button
                 key={p.id}
