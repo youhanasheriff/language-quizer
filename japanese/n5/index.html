@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JLPT N5 Quiz - Language Quizer</title>
+<link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+
+<div class="header">
+  <a href="../../index.html" class="logo">Language Quizer</a>
+  <div class="breadcrumb">
+    <a href="../../index.html">Languages</a>
+    <span class="sep">/</span>
+    <a href="../index.html">Japanese</a>
+    <span class="sep">/</span>
+    <span>JLPT N5</span>
+  </div>
+  <div class="stats">
+    <div>Score: <span id="score">0</span></div>
+    <div>Streak: <span id="streak" class="streak">0</span></div>
+    <div><span id="q-progress"></span></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="mode-selector" id="modes"></div>
+  <div class="filter-bar" id="filters"></div>
+
+  <div class="quiz-card" id="quiz-card">
+    <div class="progress-bar" id="progress-bar"></div>
+    <div class="question-number" id="q-num"></div>
+    <div class="question-prompt" id="q-prompt"></div>
+    <div class="question-text" id="q-text"></div>
+    <div class="reading-hint" id="q-hint"></div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next-btn" id="next-btn" onclick="nextQuestion()">Next Question</button>
+  </div>
+
+  <div class="results-screen" id="results-screen">
+    <div class="results-score" id="results-score"></div>
+    <div class="results-label">Correct Answers</div>
+    <div class="results-breakdown">
+      <div class="item"><div class="num correct-num" id="r-correct">0</div><div class="lbl">Correct</div></div>
+      <div class="item"><div class="num wrong-num" id="r-wrong">0</div><div class="lbl">Wrong</div></div>
+      <div class="item"><div class="num" id="r-total" style="color:var(--blue)">0</div><div class="lbl">Total</div></div>
+    </div>
+    <button class="submit-btn" onclick="restartQuiz()">Try Again</button>
+    <button class="submit-btn" style="background:var(--bg3);margin-left:12px;" onclick="backToMenu()">Change Mode</button>
+    <div class="missed-list" id="missed-list" style="display:none">
+      <h3>Review Missed Questions</h3>
+      <div id="missed-items"></div>
+    </div>
+  </div>
+</div>
+
+<div class="keyboard-hint">
+  <kbd>1</kbd>-<kbd>4</kbd> Answer &nbsp; <kbd>Enter</kbd>/<kbd>Space</kbd> Next
+</div>
+
+<script src="quiz.js"></script>
+</body>
+</html>

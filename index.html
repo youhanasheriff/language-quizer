@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Language Quizer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html" class="logo">Language Quizer</a>
+  <div class="breadcrumb" id="breadcrumb"></div>
+</div>
+
+<div class="container">
+  <!-- SCREEN 1: Language Selection -->
+  <div class="screen active" id="screen-languages">
+    <h2 class="screen-title">Choose a Language</h2>
+    <p class="screen-subtitle">Select the language you want to practice</p>
+    <div class="card-grid">
+      <a href="japanese/" class="lang-card">
+        <div class="lang-flag">JP</div>
+        <div class="lang-name">Japanese</div>
+        <div class="lang-desc">JLPT N5 ~ N1</div>
+        <div class="lang-meta">139 Kanji, 700+ Vocab, 58 Grammar Rules</div>
+      </a>
+      <div class="lang-card coming-soon">
+        <div class="lang-flag">KR</div>
+        <div class="lang-name">Korean</div>
+        <div class="lang-desc">TOPIK I ~ II</div>
+        <div class="lang-badge">Coming Soon</div>
+      </div>
+      <div class="lang-card coming-soon">
+        <div class="lang-flag">AR</div>
+        <div class="lang-name">Arabic</div>
+        <div class="lang-desc">Beginner ~ Advanced</div>
+        <div class="lang-badge">Coming Soon</div>
+      </div>
+      <div class="lang-card coming-soon">
+        <div class="lang-flag">ZH</div>
+        <div class="lang-name">Chinese</div>
+        <div class="lang-desc">HSK 1 ~ 6</div>
+        <div class="lang-badge">Coming Soon</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>Built by Youhana Sheriff</p>
+</footer>
+
+</body>
+</html>
