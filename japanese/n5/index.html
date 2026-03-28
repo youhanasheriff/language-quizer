@@ -6,36 +6,6 @@
 <title>JLPT N5 - Language Quizer</title>
 <link rel="stylesheet" href="../../style.css">
 <style>
-  .tab-bar {
-    display: flex;
-    gap: 4px;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 4px;
-    margin-bottom: 32px;
-    max-width: 400px;
-  }
-  .tab-btn {
-    flex: 1;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none;
-    text-align: center;
-    color: var(--text2);
-    background: transparent;
-  }
-  .tab-btn:hover { color: var(--text); }
-  .tab-btn.active {
-    background: var(--accent);
-    color: #fff;
-  }
   .activity-card {
     background: var(--card);
     border: 2px solid var(--border);
@@ -90,11 +60,6 @@
 <div class="container">
   <h2 class="screen-title">JLPT N5</h2>
   <p class="screen-subtitle">Choose your practice mode</p>
-
-  <div class="tab-bar">
-    <a href="quiz.html" class="tab-btn active">Quiz</a>
-    <a href="reading.html" class="tab-btn">Reading</a>
-  </div>
 
   <a href="quiz.html" class="activity-card">
     <h3>Quiz Practice</h3>
