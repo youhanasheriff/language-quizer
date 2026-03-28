@@ -424,23 +424,108 @@ function buildVocabQuestions() {
 }
 
 function buildSentenceQuestions() {
-  const pool = shuffle(SENTENCES).slice(0, 60);
+  // Japanese particles and common word endings to split on
+  const PARTICLES = ['は','が','を','に','で','へ','と','も','の','から','まで','より','か','ね','よ'];
+  const VERB_ENDINGS = ['ます','ました','ません','ませんでした','です','でした','ください','ましょう','ませんか','たいです','ています','てください','はいけません','もいいです'];
+
+  function splitJapanese(sent) {
+    // Split sentence into chunks using particles as delimiters (keeping them)
+    let parts = [];
+    let remaining = sent.replace(/。$/, '');
+
+    // Try to split by spaces first (some sentences have them)
+    if (remaining.includes(' ')) {
+      return remaining.split(/\s+/).filter(w => w.length >= 1);
+    }
+
+    // Split by particles — keep particle attached to preceding word
+    // Strategy: find known vocab words and particles in the sentence
+    let chunks = [];
+    let i = 0;
+    while (i < remaining.length) {
+      let matched = false;
+      // Try matching verb endings first (longer patterns)
+      for (const ve of VERB_ENDINGS.sort((a,b) => b.length - a.length)) {
+        if (remaining.substring(i).startsWith(ve)) {
+          chunks.push(ve);
+          i += ve.length;
+          matched = true;
+          break;
+        }
+      }
+      if (matched) continue;
+      // Try matching particles
+      for (const p of PARTICLES.sort((a,b) => b.length - a.length)) {
+        if (remaining.substring(i).startsWith(p) && i > 0) {
+          chunks.push(p);
+          i += p.length;
+          matched = true;
+          break;
+        }
+      }
+      if (matched) continue;
+      // Accumulate into current chunk
+      if (chunks.length === 0 || PARTICLES.includes(chunks[chunks.length-1]) || VERB_ENDINGS.includes(chunks[chunks.length-1])) {
+        chunks.push(remaining[i]);
+      } else {
+        chunks[chunks.length-1] += remaining[i];
+      }
+      i++;
+    }
+    return chunks.filter(c => c.length >= 1);
+  }
+
+  const pool = shuffle(SENTENCES).slice(0, 80);
   questions = [];
 
   for (const s of pool) {
-    const words = s.sentence.split(/\s+/).filter(w => w.length >= 2);
-    if (words.length < 3) continue;
+    const sent = s.sentence;
+    if (sent.length < 6) continue;
 
-    const blankIdx = Math.floor(Math.random() * words.length);
-    const blankWord = words[blankIdx];
-    const display = words.map((w,i) => i === blankIdx ? '＿＿＿' : w).join(' ');
+    const parts = splitJapanese(sent);
+    // Need at least 3 parts to make a meaningful blank
+    if (parts.length < 3) continue;
 
-    // Find distractors from other sentences
-    const otherWords = shuffle(
-      SENTENCES.flatMap(x => x.sentence.split(/\s+/).filter(w => w.length >= 2 && w !== blankWord))
-    ).slice(0, 3);
+    // Pick a part to blank out — prefer particles and verb endings (more testable)
+    const blankableParts = [];
+    parts.forEach((p, idx) => {
+      if (PARTICLES.includes(p)) blankableParts.push(idx);
+      else if (VERB_ENDINGS.some(ve => p.includes(ve))) blankableParts.push(idx);
+    });
 
-    if (otherWords.length < 3) continue;
+    // If no good blankable parts, pick any non-first part
+    let blankIdx;
+    if (blankableParts.length > 0) {
+      blankIdx = blankableParts[Math.floor(Math.random() * blankableParts.length)];
+    } else {
+      blankIdx = 1 + Math.floor(Math.random() * (parts.length - 1));
+    }
+
+    const blankWord = parts[blankIdx];
+    if (blankWord.length < 1) continue;
+
+    const display = parts.map((p, i) => i === blankIdx ? '＿＿＿' : p).join('');
+
+    // Build distractors
+    let distractors = [];
+    if (PARTICLES.includes(blankWord)) {
+      // Use other particles as distractors
+      distractors = shuffle(PARTICLES.filter(p => p !== blankWord)).slice(0, 3);
+    } else {
+      // Use parts from other sentences as distractors
+      const otherParts = new Set();
+      for (const other of SENTENCES) {
+        const op = splitJapanese(other.sentence);
+        op.forEach(p => {
+          if (p !== blankWord && p.length >= 1 && !PARTICLES.includes(p)) {
+            otherParts.add(p);
+          }
+        });
+      }
+      distractors = shuffle([...otherParts]).slice(0, 3);
+    }
+
+    if (distractors.length < 3) continue;
 
     questions.push({
       type: 'mc',
@@ -449,11 +534,25 @@ function buildSentenceQuestions() {
       prompt: 'Fill in the blank:',
       hint: '',
       answer: blankWord,
-      options: shuffle([blankWord, ...otherWords]),
-      detail: s.sentence
+      options: shuffle([blankWord, ...distractors]),
+      detail: sent
     });
 
     if (questions.length >= 20) break;
+  }
+
+  // Fallback: if still no questions, show error
+  if (questions.length === 0) {
+    questions.push({
+      type: 'mc',
+      display: 'No sentences available for this filter',
+      displayClass: 'sentence',
+      prompt: 'Try a different mode',
+      hint: '',
+      answer: 'OK',
+      options: ['OK'],
+      detail: ''
+    });
   }
 }
 
@@ -615,7 +714,7 @@ function showResults() {
   const rs = document.getElementById('results-screen');
   rs.classList.add('show');
 
-  const pct = Math.round((score / questions.length) * 100);
+  const pct = questions.length > 0 ? Math.round((score / questions.length) * 100) : 0;
   document.getElementById('results-score').textContent = pct + '%';
   document.getElementById('r-correct').textContent = score;
   document.getElementById('r-wrong').textContent = questions.length - score;
